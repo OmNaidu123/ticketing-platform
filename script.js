@@ -124,12 +124,8 @@ const htmlContent = `
                     </div>
                 </div>
                 <canvas id="canvas"></canvas>
-                <h3 class="mt-4 mb-3">Scanned Results</h3>
                 <div id="qrResult"></div>
             </div>
-        </div>
-        <div class="text-center mt-3">
-            <button id="downloadDataButton" class="btn btn-success mb-3"><i class="fas fa-download"></i> Download Scanned Data</button>
         </div>
     </div>
 
@@ -268,7 +264,6 @@ const htmlContent = `
             newItem.classList.add('scanned-item');
             newItem.setAttribute('id', scanId);
             newItem.textContent = qrData;
-            resultDiv.appendChild(newItem);
         }
 
         function removeItemFromDisplay(scanId) {
@@ -323,9 +318,6 @@ app.post('/api/scans', async (req, res) => {
     }
     let activity;
     if (scan.isPresent) {
-        // if(scan.eventId != eventId){
-        //     res.status(400).json("already in another event");
-        // }
         scan.exitTime = new Date();
         scan.duration = (scan.exitTime - scan.entryTime) / 1000;
         scan.isPresent = false;
