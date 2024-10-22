@@ -286,8 +286,11 @@ app.post('/api/events', async (req, res) => {
     if (!name) {
         return res.status(400).json({ error: 'Event name is required' });
     }
-    const event = new Event({ name });
-    await event.save();
+    let event = await Event.findOne({ name });
+    if (!event) {
+        event = new Event({ name });
+        await event.save();
+    }
     res.json(event);
 });
 
